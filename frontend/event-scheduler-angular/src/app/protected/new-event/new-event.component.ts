@@ -6,7 +6,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatTimepickerModule } from '@angular/material/timepicker';
+//import { MatTimepickerModule } from '@angular/material/timepicker';
 
 @Component({
     selector: 'app-new-event',
@@ -21,7 +21,6 @@ import { MatTimepickerModule } from '@angular/material/timepicker';
         MatCardModule,
         ReactiveFormsModule,
         MatDatepickerModule,
-        MatTimepickerModule,
     ],
 })
 export class NewEventComponent {
