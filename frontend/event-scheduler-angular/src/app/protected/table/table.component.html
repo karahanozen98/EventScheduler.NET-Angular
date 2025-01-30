@@ -1,4 +1,13 @@
 <div class="mat-elevation-z2">
+    <div class="create-new-event">
+        <button
+            mat-raised-button
+            color="primary"
+            (click)="handleCreateNewEvent()"
+        >
+            <mat-icon>add</mat-icon> Create New Event
+        </button>
+    </div>
     <table mat-table class="full-width-table" matSort aria-label="Elements">
         <!-- Id Column -->
         <ng-container matColumnDef="id">

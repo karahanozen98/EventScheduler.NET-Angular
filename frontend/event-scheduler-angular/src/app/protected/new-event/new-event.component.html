@@ -1,0 +1,73 @@
+<form [formGroup]="eventForm" novalidate (ngSubmit)="onSubmit()">
+    <mat-card class="shipping-card">
+        <mat-card-header>
+            <mat-card-title>Event Information</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width">
+                        <input
+                            matInput
+                            placeholder="Title"
+                            formControlName="title"
+                        />
+                        @if (eventForm.controls['title'].hasError('required')) {
+                        <mat-error
+                            >Title is <strong>required</strong></mat-error
+                        >
+                        }
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width">
+                        <input
+                            matInput
+                            placeholder="Description"
+                            formControlName="description"
+                            [defaultValue]=""
+                        />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width">
+                        <input matInput [matDatepicker]="picker" />
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle
+                            matIconSuffix
+                            [for]="picker"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        @if (eventForm.controls['date'].hasError('required')) {
+                        <mat-error
+                            >Event date is <strong>required</strong></mat-error
+                        >
+                        }
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field class="full-width">
+                        <mat-label>Pick a time</mat-label>
+                        <input matInput [matTimepicker]="picker" />
+                        <mat-timepicker-toggle matIconSuffix [for]="picker" />
+                        <mat-timepicker #picker />
+                        @if (eventForm.controls['time'].hasError('required')) {
+                        <mat-error
+                            >Event time is <strong>required</strong></mat-error
+                        >
+                        }
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" type="submit">
+                Submit
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</form>

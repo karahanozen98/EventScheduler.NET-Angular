@@ -18,11 +18,14 @@ import {
     MomentDateAdapter,
 } from '@angular/material-moment-adapter';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { authInterceptor } from './auth/auth.interceptor';
+import { authInterceptor } from './interceptors/auth.interceptor';
+import { baseUrlInterceptor } from './interceptors/base-url.interceptor';
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        provideHttpClient(withInterceptors([authInterceptor])),
+        provideHttpClient(
+            withInterceptors([baseUrlInterceptor, authInterceptor])
+        ),
         provideZoneChangeDetection({ eventCoalescing: true }),
         provideRouter(
             routes,

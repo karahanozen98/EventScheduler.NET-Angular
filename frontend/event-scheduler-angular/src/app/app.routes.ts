@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { LayoutComponent } from './layout/layout/layout.component';
 
 export const routes: Routes = [
-    { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
+    { path: '', pathMatch: 'full', redirectTo: 'events' },
     {
         path: 'login',
         title: 'Login',
@@ -43,20 +43,20 @@ export const routes: Routes = [
                 path: 'events',
                 title: 'Events',
                 data: {
-                    icon: 'table_chart',
+                    icon: 'list',
                     title: 'Events',
                 },
                 loadChildren: () => import('./protected/table/table.routes'),
             },
             {
-                path: 'address-form',
-                title: 'Address Form',
+                path: 'new-event',
+                title: 'New Event',
                 data: {
-                    icon: 'home',
-                    title: 'Address Form',
+                    icon: 'event',
+                    title: 'Schedule New Event',
                 },
                 loadChildren: () =>
-                    import('./protected/address-form/address-form.routes'),
+                    import('./protected/new-event/new-event.routes'),
             },
             {
                 path: 'tree',
@@ -67,7 +67,7 @@ export const routes: Routes = [
                 },
                 loadChildren: () => import('./protected/tree/tree.routes'),
             },
-            { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
+            { path: '**', redirectTo: 'events', pathMatch: 'full' },
         ],
     },
 ];
