@@ -9,6 +9,7 @@ import { IBaseResponse } from '../../shared/models/base.response.model';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
     selector: 'app-table',
@@ -28,9 +29,13 @@ export class TableComponent implements AfterViewInit {
     @ViewChild(MatSort) sort!: MatSort;
     @ViewChild(MatTable) table!: MatTable<ISchedulerItem>;
     dataSource = new TableDataSource();
-    displayedColumns = ['date', 'title', 'description'];
+    displayedColumns = ['startDate', 'title', 'description'];
 
-    constructor(private http: HttpClient, private router: Router) {}
+    constructor(
+        private http: HttpClient,
+        private router: Router,
+        private datePipe: DatePipe
+    ) {}
 
     handleCreateNewEvent(): void {
         this.router.navigate(['new-event']);
@@ -44,6 +49,10 @@ export class TableComponent implements AfterViewInit {
         });
     }
 
+    formatDate(date: Date) {
+        return this.datePipe.transform(date, 'YYYY-MM-dd HH:mm');
+    }
+
     fetchData(): Observable<ISchedulerItem[]> {
         return this.http
             .get<IBaseResponse<ISchedulerItem[]>>('api/v1/CalendarEvent')
@@ -55,5 +64,5 @@ interface ISchedulerItem {
     id: string;
     title: string;
     description: string;
-    date: Date;
+    startDate: Date;
 }

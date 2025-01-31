@@ -1,4 +1,5 @@
 import { HttpInterceptorFn } from '@angular/common/http';
+import { tap } from 'rxjs';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
     const token = localStorage.getItem('token');
@@ -11,5 +12,14 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
         });
     }
 
-    return next(req);
+    return next(req).pipe(
+        tap({
+            error: (error) => {
+                if (error.status === 401) {
+                    localStorage.removeItem('token');
+                    window.location.assign('/login');
+                }
+            },
+        })
+    );
 };

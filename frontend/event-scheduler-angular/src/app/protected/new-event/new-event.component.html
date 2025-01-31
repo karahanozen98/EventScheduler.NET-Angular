@@ -35,8 +35,12 @@
             <div class="row">
                 <div class="col">
                     <mat-form-field class="full-width">
-                        <input matInput [matDatepicker]="picker" />
-                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <input
+                            matInput
+                            [matDatepicker]="picker"
+                            formControlName="date"
+                            placeholder="Pick a date"
+                        />
                         <mat-datepicker-toggle
                             matIconSuffix
                             [for]="picker"
@@ -46,22 +50,38 @@
                         <mat-error
                             >Event date is <strong>required</strong></mat-error
                         >
+                        } @else if (eventForm.controls['date'].hasError('min'))
+                        {
+                        <mat-error
+                            >The selected date cannot be earlier than today
+                        </mat-error>
                         }
                     </mat-form-field>
                 </div>
-                <!-- <div class="col">
+                <div class="col">
                     <mat-form-field class="full-width">
-                        <mat-label>Pick a time</mat-label>
-                        <input matInput [matTimepicker]="picker" />
-                        <mat-timepicker-toggle matIconSuffix [for]="picker" />
-                        <mat-timepicker #picker />
+                        <input
+                            matInput
+                            [matTimepicker]="timepicker"
+                            formControlName="time"
+                            placeholder="Pick a time"
+                        />
+                        <mat-timepicker-toggle
+                            matIconSuffix
+                            [for]="timepicker"
+                        />
+                        <mat-timepicker #timepicker />
                         @if (eventForm.controls['time'].hasError('required')) {
                         <mat-error
                             >Event time is <strong>required</strong></mat-error
                         >
+                        }@else if (eventForm.controls['time'].hasError('min')) {
+                        <mat-error
+                            >The selected date cannot be a past date
+                        </mat-error>
                         }
                     </mat-form-field>
-                </div> -->
+                </div>
             </div>
         </mat-card-content>
         <mat-card-actions>
