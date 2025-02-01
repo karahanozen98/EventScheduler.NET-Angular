@@ -1,15 +1,15 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableModule, MatTable } from '@angular/material/table';
 import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
-import { MatSortModule, MatSort } from '@angular/material/sort';
-import { TableDataSource } from './table-datasource';
+import { MatSortModule, MatSort, Sort } from '@angular/material/sort';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { map } from 'rxjs';
 import { IBaseResponse } from '../../shared/models/base.response.model';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
     selector: 'app-table',
@@ -24,12 +24,13 @@ import { DatePipe } from '@angular/common';
         MatIconModule,
     ],
 })
-export class TableComponent implements AfterViewInit {
+export class TableComponent implements OnInit {
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
     @ViewChild(MatTable) table!: MatTable<ISchedulerItem>;
-    dataSource = new TableDataSource();
-    displayedColumns = ['startDate', 'title', 'description'];
+    dataSource = new MatTableDataSource<ISchedulerItem>();
+    displayedColumns = ['startDate', 'title', 'description', 'actions'];
+    scheduledEvents: ISchedulerItem[] = [];
 
     constructor(
         private http: HttpClient,
@@ -37,30 +38,43 @@ export class TableComponent implements AfterViewInit {
         private datePipe: DatePipe
     ) {}
 
-    handleCreateNewEvent(): void {
-        this.router.navigate(['new-event']);
+    ngOnInit(): void {
+        this.fetchCalendarEvents();
     }
 
-    ngAfterViewInit(): void {
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.fetchData().subscribe((data) => {
-            this.table.dataSource = data;
-        });
+    handleCreateNewEvent(): void {
+        this.router.navigate(['new-event']);
     }
 
     formatDate(date: Date) {
         return this.datePipe.transform(date, 'YYYY-MM-dd HH:mm');
     }
 
-    fetchData(): Observable<ISchedulerItem[]> {
-        return this.http
+    editRow(row: ISchedulerItem) {}
+
+    deleteRow(row: ISchedulerItem) {
+        this.http
+            .delete<IBaseResponse<unknown>>(`api/v1/CalendarEvent/${row.id}`)
+            .subscribe((res) => {
+                if (res.isSuccess) {
+                    this.fetchCalendarEvents();
+                }
+            });
+    }
+
+    fetchCalendarEvents(): void {
+        this.http
             .get<IBaseResponse<ISchedulerItem[]>>('api/v1/CalendarEvent')
-            .pipe(map((res) => res.result));
+            .pipe(map((res) => res.result))
+            .subscribe((data) => {
+                this.dataSource.data = data;
+                this.dataSource.sort = this.sort;
+                this.dataSource.paginator = this.paginator;
+            });
     }
 }
 
-interface ISchedulerItem {
+export interface ISchedulerItem {
     id: string;
     title: string;
     description: string;

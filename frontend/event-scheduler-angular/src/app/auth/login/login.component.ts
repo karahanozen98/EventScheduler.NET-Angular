@@ -46,8 +46,6 @@ export class LoginComponent {
     }
 
     onSubmit() {
-        console.log(this.loginForm.valid);
-
         if (this.loginForm.valid) {
             this.handleLogin().subscribe();
         }
