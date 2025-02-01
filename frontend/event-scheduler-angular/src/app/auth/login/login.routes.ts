@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import {DashboardComponent} from './dashboard.component'
+import { LoginComponent } from './login.component';
 
 export default [
     {
         path: '',
-        component: DashboardComponent,
+        component: LoginComponent,
     },
 ] as Routes;

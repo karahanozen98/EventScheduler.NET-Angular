@@ -1,49 +1,28 @@
 import { Routes } from '@angular/router';
 import { LayoutComponent } from './layout/layout/layout.component';
+import { AuthGuard } from './auth/auth.guard';
 
 export const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'events' },
-    {
-        path: 'login',
-        title: 'Login',
-        data: {
-            icon: 'login',
-            title: 'Login',
-        },
-        loadComponent: () =>
-            import('./auth/login/login.component').then(
-                (m) => m.LoginComponent
-            ),
-    },
     {
         path: '',
         component: LayoutComponent,
         children: [
             {
-                path: 'dashboard',
-                title: 'Dashboard',
+                path: 'login',
+                title: 'Login',
                 data: {
-                    icon: 'desktop_windows',
-                    title: 'Dashboard',
+                    hideSideBar: true,
+                    hideFromMenu: true,
                 },
-                loadChildren: () =>
-                    import('./protected/dashboard/dashboard.routes'),
-            },
-            {
-                path: 'drag-drop',
-                title: 'Drag and Drop',
-                data: {
-                    icon: 'drag_indicator',
-                    title: 'Drag and Drop',
-                },
-                loadChildren: () =>
-                    import('./protected/drag-drop/drag-drop.routes'),
+                loadChildren: () => import('./auth/login/login.routes'),
             },
             {
                 path: 'events',
                 title: 'Events',
+                canActivate: [AuthGuard],
                 data: {
-                    icon: 'list',
+                    icon: 'tasks',
                     title: 'Events',
                 },
                 loadChildren: () => import('./protected/table/table.routes'),
@@ -51,21 +30,13 @@ export const routes: Routes = [
             {
                 path: 'new-event',
                 title: 'New Event',
+                canActivate: [AuthGuard],
                 data: {
-                    icon: 'event',
+                    icon: 'playlist_add',
                     title: 'Schedule New Event',
                 },
                 loadChildren: () =>
                     import('./protected/new-event/new-event.routes'),
-            },
-            {
-                path: 'tree',
-                title: 'Tree',
-                data: {
-                    icon: 'account_tree',
-                    title: 'Tree',
-                },
-                loadChildren: () => import('./protected/tree/tree.routes'),
             },
             { path: '**', redirectTo: 'events', pathMatch: 'full' },
         ],

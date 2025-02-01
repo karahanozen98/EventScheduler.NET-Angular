@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
     ActivatedRoute,
     Router,
@@ -19,6 +19,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
     selector: 'app-layout',
@@ -46,12 +47,19 @@ import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme
 export class LayoutComponent implements OnInit {
     private breakpointObserver = inject(BreakpointObserver);
     private router: Router = inject(Router);
-    private cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
     private route: ActivatedRoute = inject(ActivatedRoute);
     routes: Routes = routes[routes.length - 1]?.children?.filter(
         (r) => r.path && r.path !== '**'
     );
-    actualRoute: { title: string; icon: string };
+    menuRoutes = this.routes.filter((r) => !r.data['hideFromMenu']);
+    actualRoute: {
+        title: string;
+        icon: string;
+        hideSideBar?: boolean;
+        hideFromMenu?: boolean;
+    };
+
+    constructor(private authService: AuthService) {}
 
     ngOnInit() {
         this.router.events.subscribe((event) => {
@@ -59,8 +67,17 @@ export class LayoutComponent implements OnInit {
                 (r) =>
                     r.path === this.route.snapshot.firstChild?.routeConfig?.path
             ) as any;
-            this.actualRoute = { title: data.title, icon: data.icon };
+            this.actualRoute = {
+                title: data.title,
+                icon: data.icon,
+                hideFromMenu: data.hideFromMenu,
+                hideSideBar: data.hideSideBar,
+            };
         });
+    }
+
+    handleSignOut() {
+        this.authService.signOut();
     }
 
     isHandset$: Observable<boolean> = this.breakpointObserver
