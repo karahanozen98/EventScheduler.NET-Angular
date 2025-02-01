@@ -18,11 +18,15 @@ import {
     MomentDateAdapter,
 } from '@angular/material-moment-adapter';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { authInterceptor } from './auth/auth.interceptor';
+import { authInterceptor } from './interceptors/auth.interceptor';
+import { baseUrlInterceptor } from './interceptors/base-url.interceptor';
+import { DatePipe } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        provideHttpClient(withInterceptors([authInterceptor])),
+        provideHttpClient(
+            withInterceptors([baseUrlInterceptor, authInterceptor])
+        ),
         provideZoneChangeDetection({ eventCoalescing: true }),
         provideRouter(
             routes,
@@ -42,26 +46,28 @@ export const appConfig: ApplicationConfig = {
             useClass: MomentDateAdapter,
         },
         {
-            provide: MAT_DATE_LOCALE,
-            useValue: 'en-US',
-        },
-        {
             provide: MAT_DATE_FORMATS,
             useValue: {
                 parse: {
                     dateInput: 'YYYY-MM-DD',
+                    timeInput: 'HH:mm',
                 },
                 display: {
                     dateInput: 'YYYY-MM-DD',
                     monthYearLabel: 'LLL yyyy',
                     dateA11yLabel: 'DD',
                     monthYearA11yLabel: 'LLLL yyyy',
+                    timeInput: 'HH:mm',
+                    timeOptionLabel: 'HH:mm',
                 },
             },
         },
         {
             provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS,
-            useValue: { useUtc: true },
+            useValue: { useUtc: false },
+        },
+        {
+            provide: DatePipe,
         },
     ],
 };

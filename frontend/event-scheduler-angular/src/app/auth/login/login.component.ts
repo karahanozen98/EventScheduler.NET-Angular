@@ -55,13 +55,10 @@ export class LoginComponent {
 
     handleLogin() {
         return this.http
-            .post<IBaseResponse<ILoginResponse>>(
-                'http://localhost:5277/api/v1/auth/login',
-                {
-                    username: this.loginForm.value.email,
-                    password: this.loginForm.value.password,
-                }
-            )
+            .post<IBaseResponse<ILoginResponse>>('api/v1/auth/login', {
+                username: this.loginForm.value.email,
+                password: this.loginForm.value.password,
+            })
             .pipe(
                 map((res) => {
                     if (res.isSuccess) {
