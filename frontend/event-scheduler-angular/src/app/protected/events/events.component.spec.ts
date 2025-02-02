@@ -1,7 +1,6 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
 import { EventsComponent } from './events.component';
+import { appConfig } from '../../app.config';
 
 describe('EventsComponent', () => {
     let component: EventsComponent;
@@ -9,7 +8,8 @@ describe('EventsComponent', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule],
+            imports: [EventsComponent],
+            providers: [...appConfig.providers],
         }).compileComponents();
     }));
 
