@@ -25,7 +25,7 @@ namespace EventScheduler.Application.BackgroundJobs
         public Task StartAsync(CancellationToken cancellationToken)
         {
             this._logger.LogInformation($"{nameof(EventNotificationJob)} has started");
-            this._timer = new Timer(CheckForUpcomingEvents, null, TimeSpan.Zero, TimeSpan.FromMinutes(1));
+            this._timer = new Timer(CheckForUpcomingEvents, null, TimeSpan.Zero, TimeSpan.FromSeconds(10));
             return Task.CompletedTask;
         }
 
@@ -98,11 +98,15 @@ namespace EventScheduler.Application.BackgroundJobs
 
             if (timeLeft.TotalHours < 1)
             {
-                timeMessage = $"{timeLeft.Minutes} minutes";
+                timeMessage =
+                    $"{Math.Max(1, timeLeft.Minutes)} minute"
+                    + (timeLeft.Minutes > 1 ? "s" : string.Empty);
             }
             else
             {
-                timeMessage = $"{(int)timeLeft.TotalHours} hours";
+                timeMessage =
+                    $"{(int)timeLeft.TotalHours} hour"
+                    + ((int)timeLeft.TotalHours > 1 ? "s" : string.Empty);
             }
 
             return timeMessage;

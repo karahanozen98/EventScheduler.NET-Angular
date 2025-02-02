@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventScheduler.Infrastructu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventScheduler.Core", "src\EventScheduler.Core\EventScheduler.Core.csproj", "{9EB8204E-84CA-4025-A1F8-FC8C00D6D667}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{C1F059DE-6D66-4658-A108-AF95BEC04447}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventScheduler.Tests", "tests\EventScheduler.Tests\EventScheduler.Tests.csproj", "{13667B38-9A80-44E0-96D8-5E18A76BEFA2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +45,10 @@ Global
 		{9EB8204E-84CA-4025-A1F8-FC8C00D6D667}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9EB8204E-84CA-4025-A1F8-FC8C00D6D667}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9EB8204E-84CA-4025-A1F8-FC8C00D6D667}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13667B38-9A80-44E0-96D8-5E18A76BEFA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13667B38-9A80-44E0-96D8-5E18A76BEFA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13667B38-9A80-44E0-96D8-5E18A76BEFA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13667B38-9A80-44E0-96D8-5E18A76BEFA2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -51,6 +59,7 @@ Global
 		{662FF39A-B721-4F04-A5ED-BD9A5547A746} = {BD269638-9CF0-4CA4-92D8-D7215E505B15}
 		{879AD423-9EE5-48D8-9440-7A33BBBC49BC} = {BD269638-9CF0-4CA4-92D8-D7215E505B15}
 		{9EB8204E-84CA-4025-A1F8-FC8C00D6D667} = {BD269638-9CF0-4CA4-92D8-D7215E505B15}
+		{13667B38-9A80-44E0-96D8-5E18A76BEFA2} = {C1F059DE-6D66-4658-A108-AF95BEC04447}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9D9FBB10-03C3-40A5-878E-200A07268448}
