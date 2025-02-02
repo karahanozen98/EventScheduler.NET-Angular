@@ -36,7 +36,19 @@ export const routes: Routes = [
                     title: 'Schedule New Event',
                 },
                 loadChildren: () =>
-                    import('./protected/new-event/new-event.routes'),
+                    import('./protected/event-form/event-form.routes'),
+            },
+            {
+                path: 'event/:id',
+                title: 'Edit Event',
+                canActivate: [AuthGuard],
+                data: {
+                    icon: 'edit',
+                    title: 'Edit Event',
+                    hideFromMenu: true,
+                },
+                loadChildren: () =>
+                    import('./protected/event-form/event-form.routes'),
             },
             { path: '**', redirectTo: 'events', pathMatch: 'full' },
         ],

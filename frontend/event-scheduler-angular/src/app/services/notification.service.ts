@@ -25,7 +25,7 @@ export class NotificationService {
         return this;
     }
 
-    on(methodName: string, callback: (...args: any[]) => any) {
+    on(methodName: string, callback: (...args: string[]) => void) {
         this.hubConnection.on(methodName, callback);
     }
 

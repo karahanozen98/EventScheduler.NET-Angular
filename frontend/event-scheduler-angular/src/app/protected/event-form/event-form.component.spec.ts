@@ -1,11 +1,11 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { NewEventComponent } from './new-event.component';
+import { EventFormComponent } from './event-form.component';
 
-describe('NewEventComponent', () => {
-    let component: NewEventComponent;
-    let fixture: ComponentFixture<NewEventComponent>;
+describe('EventFormComponent', () => {
+    let component: EventFormComponent;
+    let fixture: ComponentFixture<EventFormComponent>;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -14,7 +14,7 @@ describe('NewEventComponent', () => {
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(NewEventComponent);
+        fixture = TestBed.createComponent(EventFormComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

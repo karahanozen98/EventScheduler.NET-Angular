@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { MatTableDataSource } from '@angular/material/table';
+import { ICalendarEvent } from '../../shared/models/calendar-event.model';
 
 @Component({
     selector: 'app-table',
@@ -24,13 +25,13 @@ import { MatTableDataSource } from '@angular/material/table';
         MatIconModule,
     ],
 })
-export class TableComponent implements OnInit {
+export class EventsComponent implements OnInit {
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
-    @ViewChild(MatTable) table!: MatTable<ISchedulerItem>;
-    dataSource = new MatTableDataSource<ISchedulerItem>();
+    @ViewChild(MatTable) table!: MatTable<ICalendarEvent>;
+    dataSource = new MatTableDataSource<ICalendarEvent>();
     displayedColumns = ['startDate', 'title', 'description', 'actions'];
-    scheduledEvents: ISchedulerItem[] = [];
+    scheduledEvents: ICalendarEvent[] = [];
 
     constructor(
         private http: HttpClient,
@@ -50,9 +51,11 @@ export class TableComponent implements OnInit {
         return this.datePipe.transform(date, 'YYYY-MM-dd HH:mm');
     }
 
-    editRow(row: ISchedulerItem) {}
+    editRow(row: ICalendarEvent) {
+        this.router.navigate([`event/${row.id}`]);
+    }
 
-    deleteRow(row: ISchedulerItem) {
+    deleteRow(row: ICalendarEvent) {
         this.http
             .delete<IBaseResponse<unknown>>(`api/v1/CalendarEvent/${row.id}`)
             .subscribe((res) => {
@@ -64,7 +67,7 @@ export class TableComponent implements OnInit {
 
     fetchCalendarEvents(): void {
         this.http
-            .get<IBaseResponse<ISchedulerItem[]>>('api/v1/CalendarEvent')
+            .get<IBaseResponse<ICalendarEvent[]>>('api/v1/CalendarEvent')
             .pipe(map((res) => res.result))
             .subscribe((data) => {
                 this.dataSource.data = data;
@@ -72,11 +75,4 @@ export class TableComponent implements OnInit {
                 this.dataSource.paginator = this.paginator;
             });
     }
-}
-
-export interface ISchedulerItem {
-    id: string;
-    title: string;
-    description: string;
-    startDate: Date;
 }

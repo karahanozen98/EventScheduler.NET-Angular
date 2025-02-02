@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import { TableComponent } from './events.component';
+import { EventsComponent } from './events.component';
 
 export default [
     {
         path: '',
-        component: TableComponent,
+        component: EventsComponent,
     },
 ] as Routes;
