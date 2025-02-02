@@ -7,10 +7,12 @@ namespace EventScheduler.Api.Middleware
     public class ExceptionHandlingMiddleware
     {
         private readonly RequestDelegate _next;
+        private readonly ILogger<ExceptionHandlingMiddleware> _logger;
 
-        public ExceptionHandlingMiddleware(RequestDelegate next)
+        public ExceptionHandlingMiddleware(RequestDelegate next, ILogger<ExceptionHandlingMiddleware> logger)
         {
             this._next = next;
+            this._logger = logger;
         }
 
         public async Task Invoke(HttpContext context)
@@ -29,6 +31,9 @@ namespace EventScheduler.Api.Middleware
             }
             catch (Exception exception)
             {
+                // Log HTTP exceptions
+                this._logger.LogError($"An error occured during Http request, Details: {exception}");
+                // return exception response
                 var response = new ApiResponse<string>(exception.ToString());
                 response.Message = exception.Message;
                 response.IsSuccess = false;
