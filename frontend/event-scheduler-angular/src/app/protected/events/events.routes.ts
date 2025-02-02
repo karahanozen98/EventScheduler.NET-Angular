@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import {TableComponent} from './table.component'
+import { TableComponent } from './events.component';
 
 export default [
     {

@@ -13,8 +13,8 @@ import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
     selector: 'app-table',
-    templateUrl: './table.component.html',
-    styleUrl: './table.component.scss',
+    templateUrl: './events.component.html',
+    styleUrl: './events.component.scss',
     standalone: true,
     imports: [
         MatTableModule,

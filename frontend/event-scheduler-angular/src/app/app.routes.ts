@@ -25,7 +25,7 @@ export const routes: Routes = [
                     icon: 'tasks',
                     title: 'Events',
                 },
-                loadChildren: () => import('./protected/table/table.routes'),
+                loadChildren: () => import('./protected/events/events.routes'),
             },
             {
                 path: 'new-event',
