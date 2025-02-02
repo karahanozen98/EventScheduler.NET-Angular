@@ -47,3 +47,55 @@ body.dark-theme {
   @include mat.color-variants-backwards-compatibility($dark-theme);
   @include mat.all-component-typographies($dark-theme);
 }
+
+.snackbar-error {
+  background-color: rgb(153, 50, 50) !important;
+  color: beige;
+  padding: 10px;
+  border-radius: 10px;
+  
+  .mat-mdc-snackbar-surface{
+    all: unset!important;
+  }
+
+  .mat-mdc-button-touch-target {
+    background-color: rgb(153, 50, 50) !important;
+    border-radius: 10px;
+  }
+
+  .mat-mdc-button-touch-target:hover {
+    background-color: #ddd;
+    border-radius: 10px;
+  }
+
+  .mat-mdc-button {
+    color: #ffffff !important;
+    font-weight: bold;
+  }
+}
+
+.snackbar-success {
+  background-color: rgb(50, 153, 50) !important;
+  color: beige;
+  padding: 10px;
+  border-radius: 10px;
+
+  .mat-mdc-snackbar-surface {
+    all: unset !important;
+  }
+
+  .mat-mdc-button-touch-target {
+      background-color: rgb(50, 153, 50) !important;
+      border-radius: 10px;
+    }
+  
+  .mat-mdc-button-touch-target:hover {
+    background-color: #ddd;
+    border-radius: 10px;
+  }
+
+  .mat-mdc-button {
+    color: #ffffff !important;
+    font-weight: bold;
+  }
+}

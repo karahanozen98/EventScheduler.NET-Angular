@@ -17,11 +17,16 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './interceptors/auth.interceptor';
 import { baseUrlInterceptor } from './interceptors/base-url.interceptor';
 import { DatePipe } from '@angular/common';
+import { exceptionHandlingInterceptor } from './interceptors/exception-handling.interceptor';
 
 export const appConfig: ApplicationConfig = {
     providers: [
         provideHttpClient(
-            withInterceptors([baseUrlInterceptor, authInterceptor])
+            withInterceptors([
+                baseUrlInterceptor,
+                authInterceptor,
+                exceptionHandlingInterceptor,
+            ])
         ),
         provideZoneChangeDetection({ eventCoalescing: true }),
         provideRouter(

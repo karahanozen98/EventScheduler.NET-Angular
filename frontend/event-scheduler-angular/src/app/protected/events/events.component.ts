@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { MatTableDataSource } from '@angular/material/table';
 import { ICalendarEvent } from '../../shared/models/calendar-event.model';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
     selector: 'app-table',
@@ -36,7 +37,8 @@ export class EventsComponent implements OnInit {
     constructor(
         private http: HttpClient,
         private router: Router,
-        private datePipe: DatePipe
+        private datePipe: DatePipe,
+        private snackbarService: SnackbarService
     ) {}
 
     ngOnInit(): void {
@@ -59,9 +61,8 @@ export class EventsComponent implements OnInit {
         this.http
             .delete<IBaseResponse<unknown>>(`api/v1/CalendarEvent/${row.id}`)
             .subscribe((res) => {
-                if (res.isSuccess) {
-                    this.fetchCalendarEvents();
-                }
+                this.fetchCalendarEvents();
+                this.snackbarService.sucess('Delete operation is successful');
             });
     }
 

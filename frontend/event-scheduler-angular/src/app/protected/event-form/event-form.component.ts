@@ -26,6 +26,8 @@ import {
 } from '../../shared/utils/date.utils';
 import { ActivatedRoute } from '@angular/router';
 import { ICalendarEvent } from '../../shared/models/calendar-event.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
     selector: 'app-new-event',
@@ -60,7 +62,11 @@ export class EventFormComponent implements OnInit {
         time: [null, [Validators.required, this.minTimeValidator]],
     });
 
-    constructor(private http: HttpClient, private route: ActivatedRoute) {}
+    constructor(
+        private http: HttpClient,
+        private route: ActivatedRoute,
+        private snackBarService: SnackbarService
+    ) {}
 
     ngOnInit(): void {
         this.route.paramMap.subscribe((params) => {
@@ -131,9 +137,7 @@ export class EventFormComponent implements OnInit {
                     }
                 )
                 .subscribe((res) => {
-                    if (res.isSuccess) {
-                        alert('Edit operation is successful');
-                    }
+                    this.snackBarService.sucess('Edit operation is successful');
                 });
         } else {
             this.http
@@ -143,9 +147,9 @@ export class EventFormComponent implements OnInit {
                     startDate,
                 })
                 .subscribe((res) => {
-                    if (res.isSuccess) {
-                        alert('Create operation is successful');
-                    }
+                    this.snackBarService.sucess(
+                        'Create operation is successful'
+                    );
                 });
         }
     }
