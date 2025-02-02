@@ -44,9 +44,19 @@ namespace EventScheduler.Infrastructure.Repository
             await _dbSet.AddAsync(entity, cancellationToken);
         }
 
+        public void AddRange(TEntity[] entities)
+        {
+            _dbSet.AddRange(entities);
+        }
+
         public void Update(TEntity entity)
         {
             _dbSet.Update(entity);
+        }
+
+        public void UpdateRange(TEntity[] entities)
+        {
+            _dbSet.UpdateRange(entities);
         }
 
         public async Task DeleteAsync(Guid id, CancellationToken cancellationToken)

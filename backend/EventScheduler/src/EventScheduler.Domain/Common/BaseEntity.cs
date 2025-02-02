@@ -5,11 +5,11 @@ namespace EventScheduler.Domain.Common
     public abstract class BaseEntity
     {
         [Key]
-        public virtual Guid Id { get; protected set; }
+        public virtual Guid Id { get; set; }
 
-        public virtual DateTime CreatedAt { get; protected set; }
+        public virtual DateTime CreatedAt { get; set; }
 
-        public virtual DateTime UpdatedAt { get; protected set; }
+        public virtual DateTime UpdatedAt { get; set; }
 
         public virtual bool IsDeleted { get; set; } = false;
 

@@ -1,27 +1,24 @@
+using System.ComponentModel.DataAnnotations;
 using EventScheduler.Domain.Common;
 
 namespace EventScheduler.Domain.Entities
 {
     public class User : BaseEntity
     {
-        public string Email { get; protected set; }
-        public string FirstName { get; protected set; }
-        public string LastName { get; protected set; }
-        public string Password { get; protected set; }
+        [Required]
+        public required string Email { get; set; }
+
+        [Required]
+        public required string FirstName { get; set; }
+
+        [Required]
+        public required string LastName { get; set; }
+
+        [Required]
+        public required string Password { get; set; }
+
         public ICollection<CalendarEvent> CalendarEvents { get; set; } = [];
 
-        public User(string email, string firstName, string lastName, string password)
-        {
-            this.Email = email;
-            this.FirstName = firstName;
-            this.LastName = lastName;
-            this.Password = password;
-        }
-
-        public void SetFullname(string firstName, string lastName)
-        {
-            this.FirstName = firstName;
-            this.LastName = lastName;
-        }
+        public ICollection<Notification> Notifications { get; set; } = [];
     }
 }

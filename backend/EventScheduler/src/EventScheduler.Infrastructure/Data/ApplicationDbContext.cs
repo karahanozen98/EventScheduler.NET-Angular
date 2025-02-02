@@ -8,15 +8,18 @@ namespace EventScheduler.Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<User>()
-                .Property(e => e.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<User>().HasKey(e => e.Id);
+            modelBuilder.Entity<User>().HasIndex(e => e.Email).IsUnique();
 
-            modelBuilder.Entity<User>()
-                .HasIndex(e => e.Email)
-                .IsUnique();
+            modelBuilder.Entity<CalendarEvent>().HasIndex(e => e.Id);
+            modelBuilder.Entity<CalendarEvent>().HasOne(e => e.User).WithMany(e => e.CalendarEvents);
+
+            modelBuilder.Entity<Notification>().HasIndex(e => e.Id);
+            modelBuilder.Entity<Notification>().HasOne(e => e.User).WithMany(user => user.Notifications);
         }
 
         public DbSet<User> Users { get; set; }
         public DbSet<CalendarEvent> CalendarEvents { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
     }
 }

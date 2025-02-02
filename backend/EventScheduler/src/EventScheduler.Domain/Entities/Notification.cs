@@ -4,22 +4,16 @@ using EventScheduler.Domain.Common;
 
 namespace EventScheduler.Domain.Entities
 {
-    public class CalendarEvent : BaseEntity
+    public class Notification : BaseEntity
     {
         [Required]
-        [MaxLength(30)]
-        public string Title { get; set; } = string.Empty;
-
-        public string Description { get; set; } = string.Empty;
-
-        [Required]
-        public DateTime StartDate { get; set; }
+        public string Message { get; set; } = "";
 
         public User User { get; set; }
 
         [ForeignKey(nameof(User))]
         public Guid UserId { get; set; }
 
-        public bool HasNotified { get; set; } = false;
+        public bool HasRead { get; set; } = false;
     }
 }

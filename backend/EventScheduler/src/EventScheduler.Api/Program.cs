@@ -3,6 +3,8 @@ using EventScheduler.Application.Extensions;
 using EventScheduler.Infrastructure.Data;
 using EventScheduler.Api.Middleware;
 using EventScheduler.Core.Auth;
+using EventScheduler.Application.BackgroundJobs;
+using EventScheduler.Application.Services.Notification;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -16,6 +18,22 @@ builder.Services.AddValidatorsFromAssembly();
 builder.Services.AddGenericRepository();
 builder.Services.AddUnitOfWork();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddSignalR();
+builder.Services.AddHostedService<EventNotificationJob>();
+builder.Services.AddScoped<EventNotificationService>();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", builder =>
+    {
+        builder
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials()
+            .SetIsOriginAllowed(hostName => true);
+    });
+});
+
 var app = builder.Build();
 app.MapControllers();
 
@@ -32,8 +50,9 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
-app.UseCors(ops => ops.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+app.UseCors("CorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseHttpsRedirection();
+app.MapHub<EventNotificationHub>("/eventNotificationHub");
 app.Run();

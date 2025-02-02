@@ -16,7 +16,14 @@ namespace EventScheduler.Infrastructure.Data
             if (!this._context.Users.Any())
             {
                 this._context.Users.AddRange(
-                    new User("admin@admin.com", "John", "Doe", "admin123")
+                    new User
+                    {
+                        Id = new Guid("cbab5b6c-f11c-4b04-a8b6-573551675e60"),
+                        Email = "admin@admin.com",
+                        FirstName = "John",
+                        LastName = "Doe",
+                        Password = "admin123"
+                    }
                 );
             }
 
