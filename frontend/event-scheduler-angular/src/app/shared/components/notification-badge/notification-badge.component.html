@@ -1,0 +1,46 @@
+<div class="notification-container">
+    <!-- Notification Icon with Badge -->
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon
+            *ngIf="notifications.length > 0"
+            [matBadge]="
+                notifications.length > 99 ? '99+' : notifications.length
+            "
+            class="material-symbols-outlined"
+        >
+            notifications
+        </mat-icon>
+        <mat-icon
+            *ngIf="notifications.length === 0"
+            class="material-symbols-outlined"
+        >
+            notifications
+        </mat-icon>
+    </button>
+
+    <!-- Notification Popup (Dropdown Menu) -->
+    <mat-menu #menu="matMenu" class="notification-popup">
+        <ng-container *ngIf="notifications.length > 0; else noNotifications">
+            <button mat-menu-item *ngFor="let notification of notifications">
+                <div class="notification-item">
+                    <mat-icon
+                        class="notification-icon"
+                        [ngClass]="{
+                            unread: !notification.hasRead,
+                            read: notification.hasRead
+                        }"
+                    >
+                        fiber_manual_record
+                    </mat-icon>
+                    <span class="notification-message">{{
+                        notification.message
+                    }}</span>
+                </div>
+            </button>
+        </ng-container>
+
+        <ng-template #noNotifications>
+            <button mat-menu-item disabled>No new notifications</button>
+        </ng-template>
+    </mat-menu>
+</div>

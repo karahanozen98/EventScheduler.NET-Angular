@@ -20,27 +20,29 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
 import { AuthService } from '../../auth/auth.service';
+import { NotificationsComponent } from "../../shared/components/notification-badge/notification-badge.component";
 
 @Component({
     selector: 'app-layout',
     standalone: true,
     imports: [
-        RouterOutlet,
-        MatToolbarModule,
-        MatButtonModule,
-        MatSidenavModule,
-        MatListModule,
-        MatIconModule,
-        AsyncPipe,
-        RouterLink,
-        RouterLinkActive,
-        RouterOutlet,
-        NgOptimizedImage,
-        MatMenuTrigger,
-        MatMenu,
-        MatMenuItem,
-        ThemeToggleComponent,
-    ],
+    RouterOutlet,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
+    AsyncPipe,
+    RouterLink,
+    RouterLinkActive,
+    RouterOutlet,
+    NgOptimizedImage,
+    MatMenuTrigger,
+    MatMenu,
+    MatMenuItem,
+    ThemeToggleComponent,
+    NotificationsComponent
+],
     templateUrl: './layout.component.html',
     styleUrl: './layout.component.scss',
 })
