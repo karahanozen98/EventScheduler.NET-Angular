@@ -73,7 +73,7 @@ namespace EventScheduler.Application.BackgroundJobs
                         // create a new notification record
                         var notification = new Notification
                         {
-                            Message = $"Reminder: {ev.Title} is happening at {ev.StartDate:yyyy-mm-dd HH:mm}.",
+                            Message = $"Reminder: {ev.Title} is happening in {GenerateLeftTimeMessage(ev.StartDate)}.",
                             UserId = ev.UserId
                         };
                         notifications.Add(notification);
@@ -89,6 +89,23 @@ namespace EventScheduler.Application.BackgroundJobs
             {
                 this._logger.LogError($"An error occured during the execution of {nameof(EventNotificationJob)}: {e}");
             }
+        }
+
+        public static string GenerateLeftTimeMessage(DateTime targetTime)
+        {
+            var timeLeft = targetTime - DateTime.UtcNow;
+            string? timeMessage;
+
+            if (timeLeft.TotalHours < 1)
+            {
+                timeMessage = $"{timeLeft.Minutes} minutes";
+            }
+            else
+            {
+                timeMessage = $"{(int)timeLeft.TotalHours} hours";
+            }
+
+            return timeMessage;
         }
     }
 }

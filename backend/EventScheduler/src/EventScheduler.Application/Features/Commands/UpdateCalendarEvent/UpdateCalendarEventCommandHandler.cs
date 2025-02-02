@@ -42,6 +42,7 @@ namespace EventScheduler.Application.Features.Commands.UpdateCalendarEvent
             calendarEvent.Title = request.Title;
             calendarEvent.Description = request.Description;
             calendarEvent.StartDate = request.StartDate;
+            calendarEvent.HasNotified = false;
 
             this._calendarEventRepository.Update(calendarEvent);
             await this._unitOfWork.SaveChangesAsync();
