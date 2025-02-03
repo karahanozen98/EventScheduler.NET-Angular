@@ -53,9 +53,9 @@ You can build and start the applications with Docker or manual setup.
 
    Run Angular
 
-   > cd frontend/event-scheduler-angular/
-   > npm install
-   > npm start
+   > cd frontend/event-scheduler-angular/<br>
+   > npm install<br>
+   > npm start<br>
 
    These commands will run the backend at port 8080 and frontend at port 4200. Visit http://localhost:4200 to see the application.
 
