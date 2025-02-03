@@ -23,6 +23,14 @@ namespace EventScheduler.Infrastructure.Data
                         FirstName = "John",
                         LastName = "Doe",
                         Password = "admin123"
+                    },
+                    new User
+                    {
+                        Id = new Guid("8aa543f8-f0ec-4b2e-a0c5-2c5bc1478c7c"),
+                        Email = "john@example.com",
+                        FirstName = "John",
+                        LastName = "Doe",
+                        Password = "john123"
                     }
                 );
             }

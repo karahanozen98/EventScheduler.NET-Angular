@@ -25,7 +25,7 @@ namespace EventScheduler.Application.BackgroundJobs
         public Task StartAsync(CancellationToken cancellationToken)
         {
             this._logger.LogInformation($"{nameof(EventNotificationJob)} has started");
-            this._timer = new Timer(CheckForUpcomingEvents, null, TimeSpan.Zero, TimeSpan.FromSeconds(10));
+            this._timer = new Timer(CheckForUpcomingEvents, null, TimeSpan.Zero, TimeSpan.FromSeconds(30));
             return Task.CompletedTask;
         }
 
@@ -77,12 +77,20 @@ namespace EventScheduler.Application.BackgroundJobs
                             UserId = ev.UserId
                         };
                         notifications.Add(notification);
-                        _ = notificationService.SendNotificationAsync(ev.UserId, notification.Message);
                     }
 
                     eventRepository.UpdateRange([.. upcomingEvents]);
                     notificationRepository.AddRange([.. notifications]);
                     await unitOfWork.SaveChangesAsync();
+
+                    // Send notification
+                    var userIds = notifications
+                        .DistinctBy((n) => n.UserId)
+                        .Select(n => n.UserId.ToString())
+                        .ToArray();
+
+                    _ = notificationService
+                        .SendMultipleNotificationsAsync(userIds, "New notifications available");
                 }
             }
             catch (Exception e)

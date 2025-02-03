@@ -11,9 +11,17 @@ namespace EventScheduler.Application.Services.Notification
             _hubContext = hubContext;
         }
 
-        public async Task SendNotificationAsync(Guid userId, string message)
+        public async Task SendMultipleNotificationsAsync(string[] userIds, string message)
         {
-            var connectionId = EventNotificationHub.GetUserConnectionId(userId.ToString());
+            foreach (var id in userIds)
+            {
+                await this.SendNotificationAsync(id, message);
+            }
+        }
+
+        public async Task SendNotificationAsync(string userId, string message)
+        {
+            var connectionId = EventNotificationHub.GetUserConnectionId(userId);
 
             if (!string.IsNullOrEmpty(connectionId))
             {
