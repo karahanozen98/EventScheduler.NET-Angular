@@ -13,7 +13,7 @@ public class NotificationJobTests
     }
 
     [Fact]
-    public void ShouldSayOne10HourLater()
+    public void ShouldSay10HourLater()
     {
         var oneHourLater = DateTime.UtcNow.AddHours(10.1);
         var message = EventNotificationJob.GenerateLeftTimeMessage(oneHourLater);
@@ -21,7 +21,7 @@ public class NotificationJobTests
     }
 
     [Fact]
-    public void ShouldSayOne10MinutesLater()
+    public void ShouldSay10MinutesLater()
     {
         var oneHourLater = DateTime.UtcNow.AddMinutes(10.1);
         var message = EventNotificationJob.GenerateLeftTimeMessage(oneHourLater);
@@ -29,7 +29,7 @@ public class NotificationJobTests
     }
 
     [Fact]
-    public void ShouldSayOne1MinutesLater()
+    public void ShouldSay1MinutesLater()
     {
         var oneMinuteLater = DateTime.UtcNow.AddSeconds(65);
         var message = EventNotificationJob.GenerateLeftTimeMessage(oneMinuteLater);
@@ -37,7 +37,7 @@ public class NotificationJobTests
     }
 
     [Fact]
-    public void ShouldSayOne1MinutesLaterForNegativeDates()
+    public void ShouldSayMinutesLaterForNegativeDates()
     {
         var oneMinuteLater = DateTime.UtcNow.AddHours(-1);
         var message = EventNotificationJob.GenerateLeftTimeMessage(oneMinuteLater);
