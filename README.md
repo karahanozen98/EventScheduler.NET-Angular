@@ -13,7 +13,7 @@ This is a monorepo project for Event Scheduler .NET & Angular
 - Fluent validations
 - JWT Authentication
 - Real-Time Notifications with SignalR
-- Centralized exception handling
+- Centralized exception handling with middleware
 - Logging
 - Unit tests
 - Docker
@@ -25,6 +25,7 @@ This is a monorepo project for Event Scheduler .NET & Angular
 - Login & Auth mechanism
 - Guards
 - Routing
+- Error Handling with Http interceptors & Snakbar
 - Notifications
 - Dark Theme
 - Unit tests
