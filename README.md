@@ -69,6 +69,7 @@ You can use default users to login.
 ![alt text](screenshots/login.png)
 
 # Step 3: Enjoy
+
 Create your first calendar event after, each user will have their own calendar events and will get notifications for them.
 
-![alt text](image.png)
+![alt text](screenshots/image.png)
