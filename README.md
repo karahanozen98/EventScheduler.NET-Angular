@@ -25,7 +25,7 @@ This is a monorepo project for Event Scheduler .NET & Angular
 - Login & Auth mechanism
 - Guards
 - Routing
-- Error Handling with Http interceptors & Snakbar
+- Error Handling with Http interceptors & Snackbar
 - Notifications
 - Dark Theme
 - Unit tests
