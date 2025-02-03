@@ -11,12 +11,6 @@ export const exceptionHandlingInterceptor: HttpInterceptorFn = (
 
     return next(req).pipe(
         tap({
-            next: (value: any) => {
-                console.log(value);
-
-                if (value.isSuccess === false) {
-                }
-            },
             error: ({ error }) => {
                 let msg =
                     'An unknown error occured during your request, please try again later';

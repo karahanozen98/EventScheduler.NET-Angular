@@ -53,7 +53,6 @@ describe('mergeDateAndTime', () => {
     it('should be 2019-10-10T02:30:00', () => {
         const date = moment('2019-10-10');
         const time = moment().hour(2).minute(30);
-        console.log(time.toString());
 
         expect(mergeDateAndTime(date, time).toString()).toBe(
             moment('2019-10-10T02:30:00').toString()
