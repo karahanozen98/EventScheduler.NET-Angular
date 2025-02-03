@@ -72,6 +72,12 @@ export class EventFormComponent implements OnInit {
             this.eventId = params.get('id');
         });
 
+        this.eventForm.get('date')!.valueChanges.subscribe(() => {
+            setTimeout(() => {
+                this.eventForm.get('time')!.updateValueAndValidity();
+            });
+        });
+
         if (this.eventId) {
             this.http
                 .get<IBaseResponse<ICalendarEvent>>(
