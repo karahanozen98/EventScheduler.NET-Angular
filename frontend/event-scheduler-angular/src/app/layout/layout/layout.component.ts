@@ -50,6 +50,7 @@ export class LayoutComponent implements OnInit {
     private breakpointObserver = inject(BreakpointObserver);
     private router: Router = inject(Router);
     private route: ActivatedRoute = inject(ActivatedRoute);
+    username: string | null = null;
     routes: Routes = routes[routes.length - 1]?.children?.filter(
         (r) => r.path && r.path !== '**'
     );
@@ -64,6 +65,9 @@ export class LayoutComponent implements OnInit {
     constructor(private authService: AuthService) {}
 
     ngOnInit() {
+        this.authService.username$.subscribe((user) => {
+            this.username = user;
+        });
         this.router.events.subscribe((event) => {
             const { data } = this.routes.find(
                 (r) =>

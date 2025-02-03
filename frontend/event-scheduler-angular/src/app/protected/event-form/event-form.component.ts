@@ -26,7 +26,6 @@ import {
 } from '../../shared/utils/date.utils';
 import { ActivatedRoute } from '@angular/router';
 import { ICalendarEvent } from '../../shared/models/calendar-event.model';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({

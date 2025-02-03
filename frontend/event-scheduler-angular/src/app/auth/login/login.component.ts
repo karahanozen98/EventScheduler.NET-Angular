@@ -16,6 +16,8 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs';
 import { IBaseResponse } from '../../shared/models/base.response.model';
 import { Router } from '@angular/router';
+import { ILoginResponse } from '../../shared/models/login.model';
+import { AuthService } from '../auth.service';
 
 @Component({
     selector: 'app-login',
@@ -37,7 +39,8 @@ export class LoginComponent {
     constructor(
         private fb: FormBuilder,
         private http: HttpClient,
-        private router: Router
+        private router: Router,
+        private authService: AuthService
     ) {
         this.loginForm = this.fb.group({
             email: ['', [Validators.required, Validators.email]],
@@ -60,17 +63,10 @@ export class LoginComponent {
             .pipe(
                 map((res) => {
                     if (res.isSuccess) {
-                        localStorage.setItem('token', res.result.token);
+                        this.authService.setLogin(res.result);
                         this.router.navigate(['/events']);
                     }
                 })
             );
     }
-}
-
-interface ILoginResponse {
-    username: string;
-    firstName: string;
-    lastName: string;
-    token: string;
 }

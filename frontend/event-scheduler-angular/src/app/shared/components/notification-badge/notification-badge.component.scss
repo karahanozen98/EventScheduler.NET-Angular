@@ -1,8 +1,19 @@
+::ng-deep {
+    .mat-mdc-menu-panel {
+        max-width: 350px !important;
+    }
+}
+
+.full-width-button {
+    width: 100%;
+    text-align: left;
+    height: 70px;
+}
+
 .notification-item {
     display: flex;
     align-items: center;
     padding: 8px;
-    border-bottom: 1px solid #e0e0e0;
 }
 
 .notification-icon {

@@ -21,7 +21,12 @@
     <!-- Notification Popup (Dropdown Menu) -->
     <mat-menu #menu="matMenu" class="notification-popup">
         <ng-container *ngIf="notifications.length > 0; else noNotifications">
-            <button mat-menu-item *ngFor="let notification of notifications">
+            <button
+                class="full-width-button"
+                mat-menu-item
+                *ngFor="let notification of notifications"
+                (click)="handleDelete(notification.id)"
+            >
                 <div class="notification-item">
                     <mat-icon
                         class="notification-icon"

@@ -6,6 +6,9 @@ import { MatIcon } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatIconButton } from '@angular/material/button';
 import { MatBadgeModule } from '@angular/material/badge';
+import { HttpClient } from '@angular/common/http';
+import { INotification } from '../../models/notification.model';
+import { IBaseResponse } from '../../models/base.response.model';
 
 @Component({
     selector: 'app-notification-badge',
@@ -22,24 +25,50 @@ import { MatBadgeModule } from '@angular/material/badge';
     ],
 })
 export class NotificationsComponent implements OnInit, OnDestroy {
-    notifications: { message: string; hasRead: boolean }[] = [];
+    notifications: INotification[] = [];
     constructor(
         private notificationService: NotificationService,
-        private authService: AuthService
+        private authService: AuthService,
+        private http: HttpClient
     ) {}
 
     ngOnInit() {
         const userToken = this.authService.getToken();
         if (userToken) {
-            this.notificationService
-                .startConnection(userToken)
-                .on('ReceiveNotification', (message) => {
-                    this.notifications.push({ message, hasRead: false });
-                });
+            this.fetchNotifications();
+            this.addNotificationListener(userToken);
         }
     }
 
     ngOnDestroy() {
+        this.removeNotificationListener();
+    }
+
+    private fetchNotifications() {
+        this.http
+            .get<IBaseResponse<INotification[]>>('api/v1/notification')
+            .subscribe((res) => {
+                this.notifications = [...res.result];
+            });
+    }
+
+    private addNotificationListener(userToken: string) {
+        this.notificationService
+            .startConnection(userToken)
+            .on('ReceiveNotification', (message) => {
+                // if new notifications are available, fetch notifications to update the list
+                if (message == 'New notifications available') {
+                    this.fetchNotifications();
+                }
+            });
+    }
+
+    private removeNotificationListener() {
         this.notificationService.stopConnection();
+    }
+
+    handleDelete(id: string) {
+        this.notifications = this.notifications.filter((n) => n.id !== id);
+        this.http.delete(`api/v1/notification/${id}`).subscribe();
     }
 }
